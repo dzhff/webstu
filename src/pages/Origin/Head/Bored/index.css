@@ -1,0 +1,45 @@
+.bored_main {
+  padding: 20px 30px;
+  width: 70%;
+  height: 500px;
+  overflow: auto;
+  border: none;
+}
+.bored_title {
+  border-left: 5px solid rgb(0, 0, 255, 0.7);
+  border-radius: 1px;
+  padding-left: 10px;
+  margin-bottom: 20px;
+  font-size: 20px !important;
+}
+.bored_search {
+  padding: 0px 30px;
+}
+.get_bored {
+  display: flex;
+  /* justify-content: flex-end; */
+  align-items: center;
+}
+.get_bored .triangle {
+  width: 0;
+  height: 0;
+  border-width: 0.5rem;
+  border-style: solid;
+  border-color: transparent transparent transparent #ccc;
+  /* margin-left: 1rem; */
+  /* margin-top: -1rem; */
+}
+.get_bored .content {
+  font-size: 18px;
+}
+.get_bored .time {
+  color: #828282;
+  font-size: 13px;
+  position: absolute;
+  right: 0px;
+  margin-right: 25px;
+}
+.ant-list-bordered {
+  border: 1px solid transparent;
+  border-radius: 2px;
+}

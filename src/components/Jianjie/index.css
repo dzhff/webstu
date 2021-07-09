@@ -1,0 +1,7 @@
+.jianjie_top {
+  border: 1px solid red;
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+}

@@ -1,0 +1,16 @@
+.a_delete {
+  color: rgb(212, 87, 112);
+  cursor: pointer;
+}
+.a_delete:hover {
+  text-decoration: underline;
+  color: rgb(252, 4, 53);
+}
+.a_idit {
+  color: cornflowerblue;
+  cursor: pointer;
+}
+.a_idit:hover {
+  text-decoration: underline;
+  color: rgb(4, 90, 250);
+}

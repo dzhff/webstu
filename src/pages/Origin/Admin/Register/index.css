@@ -1,0 +1,74 @@
+.login {
+  width: 100%;
+  height: 100%;
+  background-image: url("../loginImg.jpg");
+  background-size: 100% 100%;
+  /* background-color: red; */
+}
+.login_bored {
+  /* box-shadow: 0 2px 12px 0 rgba(82, 122, 158, 0.5); */
+  /* border-radius: 2px; */
+  /* font-size: 15px; */
+  /* padding: 10px 15px; */
+  margin: 150px 470px;
+  width: 30%;
+  height: 62%;
+  position: absolute;
+  padding: 15px 40px;
+  /* top: 60px; */
+  /* word-break: break-all; */
+  /* word-wrap: break-word; */
+  /* border-left: 5px solid red; */
+  background-color: #fff;
+}
+.login_title {
+  font-size: 35px;
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+}
+/* .login_header {
+    font-size: 18px;
+  } */
+.login_span {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0px;
+}
+.login_section {
+}
+#components-form-demo-normal-login .login-form {
+  max-width: 300px;
+}
+#components-form-demo-normal-login .login-form-forgot {
+  float: right;
+}
+#components-form-demo-normal-login .ant-col-rtl .login-form-forgot {
+  float: left;
+}
+#components-form-demo-normal-login .login-form-button {
+  width: 100%;
+}
+.ant-form-item-control-input-content {
+  width: 100%;
+}
+.ant-btn {
+  width: 100%;
+}
+.guanBtn {
+  color: #828282;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+.guanBtn:hover {
+  text-decoration: underline;
+}
+.adminBtn {
+  color: rgb(66, 69, 255);
+  cursor: pointer;
+}
+.adminBtn:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,65 @@
+.login {
+  width: 100%;
+  height: 100%;
+  background-image: url("../loginImg.jpg");
+  background-size: 100% 100%;
+  /* background-color: red; */
+}
+.login_bored {
+  /* box-shadow: 0 2px 12px 0 rgba(82, 122, 158, 0.5); */
+  /* border-radius: 2px; */
+  /* font-size: 15px; */
+  /* padding: 10px 15px; */
+  margin: 150px 470px;
+  width: 30%;
+  height: 60%;
+  position: absolute;
+  padding: 15px 40px;
+  /* top: 60px; */
+  /* word-break: break-all; */
+  /* word-wrap: break-word; */
+  /* border-left: 5px solid red; */
+  background-color: #fff;
+}
+.login_guan {
+  font-size: 28px;
+  margin: 11px 0 12px 0;
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+}
+/* .login_header {
+    font-size: 18px;
+  } */
+.login_spanAtten {
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px 0px;
+}
+.pushadmin {
+  color: rgb(66, 69, 255);
+}
+.pushadmin:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.login_section {
+}
+#components-form-demo-normal-login .login-form {
+  max-width: 300px;
+}
+#components-form-demo-normal-login .login-form-forgot {
+  float: right;
+}
+#components-form-demo-normal-login .ant-col-rtl .login-form-forgot {
+  float: left;
+}
+#components-form-demo-normal-login .login-form-button {
+  width: 100%;
+}
+.ant-form-item-control-input-content {
+  width: 100%;
+}
+.ant-btn {
+  width: 100%;
+}

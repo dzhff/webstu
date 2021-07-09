@@ -1,0 +1,10 @@
+.new_title {
+  display: flex;
+  justify-content: flex-start;
+  margin: 10px 0;
+}
+.new_content {
+  display: flex;
+  justify-content: flex-start;
+  margin: 20px 0;
+}

@@ -1,0 +1,69 @@
+.detailSource {
+  background-color: white;
+  border: 1px solid red;
+  width: 93%;
+  padding: 10px 20px;
+}
+.detail_title {
+  font-size: 28px;
+  word-wrap: break-word;
+  color: #222226;
+  font-weight: 600;
+}
+.detail_time {
+  font-size: 15px;
+  color: #999aaa;
+  padding: 0 10px;
+}
+.primary_content {
+  /* padding-left: 20px; */
+  width: 80%;
+  font-size: 18px;
+  display: inline-block;
+  background: #434978;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-weight: 600;
+  margin-top: 20px;
+}
+.primary_content_triange {
+  /* border-left: 25px solid #c3c3c3;
+  border-bottom: 25px solid transparent;
+  border-top: 25px solid transparent;
+  border-right: 25px solid transparent;
+   */
+  width: 0;
+  height: 0;
+  border-width: 13px;
+  border-style: solid;
+  border-color: transparent transparent transparent #ccc;
+}
+.fenbu {
+  display: flex;
+  align-items: flex-start;
+}
+.imgs {
+  /* text-align: center; */
+}
+.primary_picture {
+  text-align: center !important;
+  margin: 15px auto;
+}
+.ziyuan {
+  color: blue;
+  cursor: pointer;
+  /* display: inline-block;
+  background: #434978;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-weight: 600;
+  margin-top: 20px; */
+}
+.ziyuan:hover {
+  text-decoration: underline;
+}
+.primaryy {
+  font-size: 17px;
+}

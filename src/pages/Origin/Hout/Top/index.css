@@ -1,0 +1,50 @@
+.Hout_topp {
+  background-color: white;
+  /* border: 1px solid red; */
+  padding: 20px;
+  padding-bottom: 30px;
+  padding-top: 10px;
+}
+.huanying {
+  font-size: 25px;
+  display: flex;
+  justify-content: flex-end;
+}
+.Hout_huanying {
+  /* display: flex;
+  justify-content: flex-end; */
+  /* flex-wrap: wrap; */
+  /* flex-direction: row; */
+}
+.huanying_time {
+  /* display: flex; */
+  /* justify-content: flex-end; */
+  position: absolute;
+  right: 5%;
+  font-size: 16px;
+}
+.Hout_toppTitle {
+  font-size: 25px;
+  position: absolute;
+  left: 25%;
+  top: 5%;
+}
+.title_triange {
+  border-top: 25px solid white;
+  border-bottom: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-left: 25px solid transparent;
+  position: absolute;
+  left: 0%;
+  top: 100%;
+  /* border-radius: 1px;
+  padding-left: 10px;
+  font-size: 16px; */
+}
+.backspan {
+  color: rgb(66, 69, 255);
+  cursor: pointer;
+}
+.backspan:hover {
+  font-weight: bolder;
+}
