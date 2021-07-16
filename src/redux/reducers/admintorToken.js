@@ -9,4 +9,4 @@ export default function admintorReducer(preState=initState,action){
         default:
             return  preState
     }
-}
+}  

@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 // import { Route,Redirect,Switch } from 'react-router-dom'
 import store from '../../../../redux/store'
 import {addAdmTokenAction} from '../../../../redux/actions/admintorToken'
-import {addNameAction} from '../../../../redux/actions/userNameToken'
-import { Form, Input, Button, Checkbox} from 'antd';
+// import {addNameAction} from '../../../../redux/actions/userNameToken'
+import { Form, Input, Button, message} from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import './index.css'
@@ -19,61 +19,34 @@ export default class Admintor extends Component {
         })
     }
     pushRegi=()=>{
-        this.props.history.push(`/admin/register`)
+        this.props.history.replace(`/admin/register`)
         console.log(this);
     }
-    // loginBtn=()=>{
-        // const {input1,input2}=this
-        // const onFinish=(values)=>{
-        //     console.log(values);
-        // }
-        // this.props.form.validateFields((err,values)=>{
-        //     if(!err){
-        //         console.log('提交表单成功',values);
-        //     }else{
-        //         console.log('提交表单失败');
-        //     }
-        // })
-        // axios.post(`http://121.4.187.232:8080/user/userLogin?password=${input2.state.value}&username=${input1.state.value}`).then(
-        //     response=>{
-        //         console.log(response);
-        //     }
-        // )
-        // console.log(input1.state.value);
-        // console.log(input2.state.value);
-    // }
     onFinish=(values)=>{
         const {input1,input2}=this
-        if(values.remember){
+        console.log(values.remember);
+        // if(values.remember){
             axios.post(`http://121.4.187.232:8080/user/userLogin?password=${input2.state.value}&username=${input1.state.value}`).then(
             response=>{
                 console.log(response);
                 const token=response.data.token
+                const userID=response.data.userID
                 store.dispatch(addAdmTokenAction(token))
-                store.dispatch(addNameAction(input1.state.value))
                 console.log(store.getState().deng);
-                console.log(store.getState().mingzi);
-                if(token!==''){
-                    // 
-                    // this.props.history.push(`/head/shouye`)
-                    let username= input1.state.value
-                    this.props.history.push({
-                        pathname: '/head/shouye',
-                        search: "admin="+username,
-                    });
-                }
+                let username= input1.state.value 
+                if(token!==''){  
+                    message.success('你已成功登录')
+                    
+                    this.props.history.replace(`/head/shouye/?username=${username}`)
+                }  
 
-                window.localStorage.setItem("adminToken",token)
+                window.sessionStorage.setItem("adminToken",token)
+                window.sessionStorage.setItem("userID",userID)
 
-                // let userName=JSON.stringify(input1.state.value)
-                // window.sessionStorage.setItem("admin",userName)
-                
-                // let a = JSON.parse(window.localStorage.getItem('admin'))
-                // console.log(a);
                 console.log(input1.state.value);
             }
         )
-        }
+        // }
     }
     onFinishFailed=(values, errorFields,outOfDate)=>{
         if(!outOfDate){
@@ -82,13 +55,9 @@ export default class Admintor extends Component {
 
     }
     pushGuan=()=>{
-        this.props.history.push(`/admin/attendant`)
+        this.props.history.replace(`/admin/attendant`)
     }
     render() {
-        // const NormalLoginForm = () => {
-        //     const onFinish = (values) => {
-        //       console.log('Received values of form: ', values);
-        //     };
         return (  
             <div className="login">
                 <div className="login_bored">
@@ -112,7 +81,7 @@ export default class Admintor extends Component {
                         name="username"
                         rules={[
                         {required: true,whitespace:true,message: '请输入你的用户名',},
-                        {max:4,message:'用户名最多12位'},
+                        {max:12,message:'用户名最多12位'},
                         {pattern:/^[a-zA-Z]+$/,message:'用户名必须由字母组成'},
                         ]}
                     >
@@ -128,7 +97,7 @@ export default class Admintor extends Component {
                         rules={[
                         {required: true,message: '请输入你的密码',},
                         {min:4,message:'密码最少四位'},
-                        {pattern:/^[a-zA-Z0-9]+$/,message:'密码由数字英文组成'}
+                        {pattern:/^[a-zA-Z0-9]+$/}
                         ]}
                     >
                         <Input
@@ -138,18 +107,18 @@ export default class Admintor extends Component {
                         placeholder="Password"
                         />
                     </Form.Item>
-                    <Form.Item>
+                    {/* <Form.Item>
                         <Form.Item name="remember" valuePropName="checked" noStyle>
                         <Checkbox>Remember me</Checkbox>
-                        </Form.Item>
+                        </Form.Item> */}
 
                         {/* <a className="login-form-forgot" href="../../index">
                         Forgot password
                         </a> */}
-                    </Form.Item>
+                    {/* </Form.Item> */}
 
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" /*onClick={this.loginBtn}*/ className="login-form-button">
+                        <Button type="primary" htmlType="submit" style={{width:'100%'}} /*onClick={this.loginBtn}*/ className="login-form-button">
                         Log in
                         </Button>
                         <span onClick={this.pushGuan} className="guanBtn">管理员登陆</span>

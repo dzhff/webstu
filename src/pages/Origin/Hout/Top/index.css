@@ -6,7 +6,7 @@
   padding-top: 10px;
 }
 .huanying {
-  font-size: 25px;
+  font-size: 22px;
   display: flex;
   justify-content: flex-end;
 }
@@ -26,7 +26,7 @@
 .Hout_toppTitle {
   font-size: 25px;
   position: absolute;
-  left: 25%;
+  left: 23%;
   top: 5%;
 }
 .title_triange {
@@ -35,7 +35,7 @@
   border-right: 25px solid transparent;
   border-left: 25px solid transparent;
   position: absolute;
-  left: 0%;
+  left: 20%;
   top: 100%;
   /* border-radius: 1px;
   padding-left: 10px;
@@ -47,4 +47,22 @@
 }
 .backspan:hover {
   font-weight: bolder;
+}
+@media screen and (max-width: 991px) {
+  .Hout_topp {
+    /* margin: 25px 50px; */
+    /* display: flex; */
+    /* align-items:; */
+  }
+  .Hout_topp .Hout_huanying .huanying .backspan {
+    display: none;
+  }
+  .Hout_topp .Hout_huanying .Hout_toppTitle {
+    display: none;
+  }
+}
+@media screen and (max-width: 600px) {
+  .Hout_topp .Hout_huanying .huanying_time {
+    display: none;
+  }
 }

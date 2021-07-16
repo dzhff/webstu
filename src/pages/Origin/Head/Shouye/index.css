@@ -3,7 +3,7 @@
   justify-content: space-between;
 }
 .banner_lar {
-  width: 100%;
+  width: 95%;
   padding: 0 50px 0 0px;
   /* margin-right: 100px; */
   height: 100%;
@@ -30,7 +30,7 @@
   font-size: 1em;
   color: #333;
 }
-.banner .content a {
+/* .banner .content a {
   display: inline-block;
   background: #434978;
   color: #fff;
@@ -38,11 +38,14 @@
   text-decoration: none;
   font-weight: 600;
   margin-top: 20px;
-}
+} */
 .banner_bored {
-  padding: 20px 10px;
-  width: 95%;
-  background-color: white;
+  padding: 0px;
+  width: 90%;
+  /* background-color: white; */
   /* border: 1px solid red; */
   margin-top: 0px;
+}
+.banner_source {
+  margin-bottom: 30px;
 }

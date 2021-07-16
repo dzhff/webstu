@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route,Switch,Redirect, } from 'react-router-dom'
+import { Route,Switch,Redirect,withRouter } from 'react-router-dom'
 import Charts from './Charts'
 import Users from './Users'
 import Notice from './Notice'
@@ -11,7 +11,7 @@ import './index.css'
 
 
 
-export default class Main extends Component {
+class Main extends Component {
     render() {
         return (
             <div className="Hout_mainKuang">
@@ -30,3 +30,4 @@ export default class Main extends Component {
         )
     }
 }
+export default withRouter(Main)

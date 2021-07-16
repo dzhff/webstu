@@ -2,48 +2,43 @@ import React, { Component } from 'react'
 // import { Route,Redirect,Switch } from 'react-router-dom'
 import store from '../../../../redux/store';
 import {addAttTokenAction} from '../../../../redux/actions/attendantToken'
-import { Form, Input, Button, Checkbox,message } from 'antd';
+import { Form, Input, Button,message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './index.css'
 import axios from 'axios';
-
+  
 export default class Admintor extends Component {
     state={
 
     }
     pushRegi=()=>{
-        this.props.history.push(`/admin/admintor`)
+        this.props.history.replace(`/admin/admintor`)
     }
     puahlogin=()=>{
-        this.props.history.push(`/admin/register`)
+        this.props.history.replace(`/admin/register`)
     }
-    // loginBtn=()=>{
-    //     const {input1,input2}=this
-    //     axios.post(`http://121.4.187.232:8080/user/adminLogin?password=${input2.state.value}&username=${input1.state.value}`).then(
-    //         response=>{
-    //             console.log(response);
-    //         }
-    //     )
-    //     console.log(input1.state.value);
-    //     console.log(input2.state.value);
-    // }
-    onFinish=(values)=>{
+    
+    onFinish=(values)=>{  
         const {input1,input2}=this
         if(input1.state.value==='admin'&&input2.state.value==='admin'){
-        if(values.remember){
+        // if(values.remember){
         axios.post(`http://121.4.187.232:8080/user/adminLogin?password=${input2.state.value}&username=${input1.state.value}`).then(
             response=>{
                 console.log(response);
                 const token=response.data.token
                 store.dispatch(addAttTokenAction(token))
                 console.log(store.getState().guan);
-                message.success('管理员登陆成功')
-                this.props.history.push('/hout/charts')
+                message.success('管理员登录成功')
+                // this.props.history.replace('/hout')
+                // pathname:'/home/message/detail',state:{id:msgObj.id,title:msgObj.title}}}
+                // this.props.history.replace(`/hout/?attendant=${input1.state.value}`)
+                this.props.history.replace({
+                    pathname:`/hout`,
+                    state:input1.state.value
+                })
                 window.sessionStorage.setItem('admintorToken',response.data.token)
-                
             }
         )
-        }
     }
     else{message.error('账户或密码输入错误')}
         }
@@ -110,18 +105,18 @@ export default class Admintor extends Component {
                         placeholder="Password"
                         />
                     </Form.Item>
-                    <Form.Item>
-                        <Form.Item name="remember" valuePropName="checked" noStyle>
-                        <Checkbox>Remember me</Checkbox>
-                        </Form.Item>
+                    {/* <Form.Item> */}
+                        {/* <Form.Item name="remember" valuePropName="checked" noStyle> */}
+                        {/* <Checkbox>Remember me</Checkbox> */}
+                        {/* </Form.Item> */}
 
                         {/* <a className="login-form-forgot" href="../../index">
                         Forgot password
                         </a> */}
-                    </Form.Item>
+                    {/* </Form.Item> */}
 
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" onClick={this.loginBtn} className="login-form-button">
+                        <Button type="primary" htmlType="submit" style={{width:'100%',marginTop:'10px'}} onClick={this.loginBtn} className="login-form-button">
                         Log in
                         </Button>
                         <span onClick={this.pushGuan}></span>

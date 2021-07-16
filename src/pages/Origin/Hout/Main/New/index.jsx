@@ -5,8 +5,6 @@ import { PlusOutlined,UploadOutlined  } from '@ant-design/icons';
 
 import './index.css'
 import axios from 'axios';
-// import qs from 'qs';
-// React.prototype.$qs = qs;
 const { TextArea } = Input;
 
 
@@ -15,21 +13,10 @@ export default class New extends Component {
         previewVisible: false,
         previewImage: '',
         previewTitle: '',
-        fileList: [
-        //   {
-        //     uid: '-1',
-        //     name: 'image.png',
-        //     status: 'done',
-        //     url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        //   },
-        //   {
-        //     uid: '-2',
-        //     name: 'image.png',
-        //     status: 'done',
-        //     url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        //   },
-        ],
+        fileList: [],
         SourceList:[],
+        newTitle:'',
+        newContent:'',
         token:window.sessionStorage.getItem('admintorToken'),
     }
      getBase64=(file)=> {
@@ -44,7 +31,7 @@ export default class New extends Component {
 
     handlePreview = async file => {
         if (!file.url && !file.preview) {
-        // file.preview = await this.getBase64(file.originFileObj);
+        file.preview = await this.getBase64(file.originFileObj);
         }
 
         this.setState({
@@ -55,12 +42,13 @@ export default class New extends Component {
     };
 
     handleChange = ({ fileList }) => {
-        
+        // console.log(fileList);
         this.setState({ fileList },()=>{
         console.log(fileList);
     })
     };
 
+    // 资源
     SourceChange=(info)=>{
         // let newZiyuan=[]
         if (info.file.status !== 'uploading') {
@@ -82,16 +70,29 @@ export default class New extends Component {
           }
         //   console.log(newZiyuan);
     }
+    pan=()=>{
+        return false
+    }
 
+    onPressEnter=(e)=>{
+        const newContent=e.target.value
+        this.setState({newContent})
+    }
+
+    // 上传
     pushUpload=()=>{
-        console.log(this.state.SourceList);
+
         const {token,SourceList} =this.state
-        console.log(this.state.fileList);
+
         const {input1,input2} =this
+        
         let i1=input1.state.value
         let i2 = input2.resizableTextArea.props.value
+        console.log(input2.resizableTextArea);
         // console.log(i1);
         // console.log(i2);
+        if(i1!==undefined&&i1!==""&&i1!==" "&&i1!=="  "&&i1!=="   "&&i1!=="    "&&i1!=="     "&&i1!=="      "&&i1!=="       "&i1!=="        "){
+            if(i2!==undefined&&i2!==""&&i2!==" "&&i2!=="  "&&i2!=="   "&&i2!=="    "&&i2!=="     "&&i2!=="      "&&i2!=="       "&i2!=="        "){
         axios({
             method:'post',
             url:`http://121.4.187.232:8080/admin/createPassage?content=${i2}&title=${i1}`,
@@ -100,25 +101,28 @@ export default class New extends Component {
               }
         }).then(
             response=>{
-                console.log(response)
-
+                input1.state.value=""
+                const newContent=""
+                this.setState({newContent})
+                
                 axios.get('http://121.4.187.232:8080/passage/queryAllPassage?pageNo=1&pageSize=6').then(
                     response=>{
                         let RewingId = response.data.passageItem[0].id
-                        console.log(RewingId);
 
                         const {fileList} = this.state
+                        console.log(fileList);
+
+                        // 图片
                         let param = new FormData()
-                        param.append('passageID',80)
+                        param.append('passageID',RewingId)
                         for(let i in fileList){
-                            console.log("1",fileList[i]);
+
                             if(fileList[i]){
-                                console.log("2",fileList[i]);
-                                param.append('file',fileList[i])
+                                console.log(fileList[i]);
+                                param.append('file',fileList[i].originFileObj)
                             }
-                            console.log(i);
                         }
-                        console.log(param);
+
 
                         axios({
                             method:'post',
@@ -133,27 +137,25 @@ export default class New extends Component {
                         }).then(
                             response=>{
                                 console.log(response);
-                                console.log(param);
-                                console.log(this.state.fileList);
+                                this.setState({fileList:[]})
+ 
                             }
                         )
 
                     // 资源
                     let sourceParam=new FormData()
                     sourceParam.append('passageID',RewingId)
-                    for(let i of SourceList){
-                        sourceParam.append('file',i)
+                    for(let i in SourceList){
+                        console.log(SourceList[i]);
+                        sourceParam.append('file',SourceList[i].originFileObj)
                     }
-                    axios({
-                        method:'post',
-                        url:`http://121.4.187.232:8080/admin/uploadResources`,
-                        data:sourceParam,
-                        headers: {'Content-type': 'multipart/form-data',token:token}
-                    })
                     axios.post("http://121.4.187.232:8080/admin/uploadResources", sourceParam, {headers: {'Content-type': 'multipart/form-data',token:token}})
                     .then(
                         response=>{
+                            const SourceList=[]
+                            this.setState({SourceList})
                             console.log(response);
+                            this.setState({SourceList})
                         }
                     )
                         
@@ -161,11 +163,16 @@ export default class New extends Component {
                 )
             }
         )
+        this.setState({SourceList:[]})
+        message.success('新建文章成功！')
+            }else{message.error('新建文章内容不能为空！')}
+        }else{message.error('新建文章题目不能为空！')}
     }
 
 
+
     render() {
-        const { previewVisible, previewImage, fileList, previewTitle } = this.state;
+        const { previewVisible, previewImage, fileList, previewTitle,newContent } = this.state;
         const uploadButton = (
           <div>
             <PlusOutlined />
@@ -176,29 +183,13 @@ export default class New extends Component {
         // 资源
         const props = {
             name: 'file',
-            action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+            beforeUpload:this.pan,
             headers: {
               authorization: 'authorization-text',
             },
             onChange:this.SourceChange,
-            // onChange(info) {
-            //     // let newZiyuan=[]
-            //   if (info.file.status !== 'uploading') {
-            //     console.log(info.file, info.fileList);
-            //     console.log(info.file.status);
-            //     const {SourceList} = this.state.SourceList
-            //     this.setState({SourceList:info.file},()=>{
-            //         console.log(SourceList);
-            //     })
-            //   }
-            //   if (info.file.status === 'done') {
-            //     message.success(`${info.file.name} file uploaded successfully`);
-            //     // newZiyuan.push(info.file)
-            //   } else if (info.file.status === 'error') {
-            //     message.error(`${info.file.name} file upload failed.`);
-            //   }
-            // //   console.log(newZiyuan);
-            // },
+            accept:"image/png, image/jpeg"
+            
           };
           
         return (
@@ -210,16 +201,18 @@ export default class New extends Component {
                 <div className="new_content">
                     <span style={{fontSize:'19px'}}>内容</span>&nbsp;&nbsp;&nbsp;&nbsp;
                     {/* <Input  placeholder="标题" size="middle" style={{width:'50%'}}/> */}
-                    <TextArea ref={c =>this.input2 = c} placeholder="输入你想发表的内容" autoSize style={{width:'50%'}}/>
+                    <TextArea ref={c =>this.input2 = c} value={newContent} onChange={this.onPressEnter} placeholder="输入你想发表的内容" autoSize style={{width:'50%'}}/>
                 </div>
                 {/* <span>新建或修改于{item.time}</span> */}
                 <div>
                 <Upload
-                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                    action={(file)=>{console.log(file);console.log(111111);}}
+                    beforeUpload={()=>false}
                     listType="picture-card"
                     fileList={fileList}
                     onPreview={this.handlePreview}
                     onChange={this.handleChange}
+                    accept="image/png, image/jpeg"
                     >
                     {fileList.length >= 8 ? null : uploadButton}
                     </Upload>
@@ -232,9 +225,9 @@ export default class New extends Component {
                     <img alt="example" style={{ width: '100%' }} src={previewImage} />
                     </Modal>
                 </div>
-                <div>
+                <div style={{marginBottom:'0px',marginTop:'20px'}}>
                 <Upload {...props}>
-                    <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                    <Button className="shangchuanziyuan" icon={<UploadOutlined />}>上传资源</Button>
                 </Upload>,
                 </div>
                 {/* {
@@ -245,7 +238,7 @@ export default class New extends Component {
                     })
                 } */}
                 <div>
-                    <Button style={{width:'10%'}} onClick={this.pushUpload}>上传</Button>
+                    <Button style={{width:'10%'}} type="primary" onClick={this.pushUpload}>上传</Button>
                 </div>
             </div>
         )

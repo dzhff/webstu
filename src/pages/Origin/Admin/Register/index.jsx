@@ -9,7 +9,7 @@ export default class Admintor extends Component {
 
     }
     pushAdmintor=()=>{
-        this.props.history.push(`/admin/admintor`)
+        this.props.history.replace(`/admin/admintor`)
     }
     // loginBtn=()=>{
         // const {input1,input2}=this
@@ -22,8 +22,9 @@ export default class Admintor extends Component {
         // console.log(input2.state.value);
         // }
     onFinish=(values)=>{
+        console.log(values);
         const {input1,input2}=this
-        if(values.remember){
+        // if(values.remember){
             axios.post(`http://121.4.187.232:8080/user/register?password=${input2.state.value}&username=${input1.state.value}`).then(
             response=>{
                 console.log(response.config.url);
@@ -31,15 +32,19 @@ export default class Admintor extends Component {
                 response=>{
                     console.log(response.data.token);
                     const token = response.data.token
-                    if(token!==''){
-                        this.props.history.push(`/head/shouye`)
+                    const userID=response.data.userID
+                    let username= input1.state.value 
+                    if(token!==''){ 
+                        this.props.history.replace(`/head/shouye/?username=${username}`)
                     }
+                    window.sessionStorage.setItem("adminToken",token)
+                    window.sessionStorage.setItem("userID",userID)
                 }
                 )
-                message.success('注册成功')
+                message.success('注册成功即可前往主页面')
             }
         )
-        }
+        // }
         }
     onFinishFailed=(values, errorFields,outOfDate)=>{
          console.log(values, errorFields);
@@ -52,7 +57,7 @@ export default class Admintor extends Component {
         }
         }
     pushGuan=()=>{
-        this.props.history.push(`/admin/attendant`)
+        this.props.history.replace(`/admin/attendant`)
     }
     render() {
         // const NormalLoginForm = () => {
@@ -82,7 +87,7 @@ export default class Admintor extends Component {
                         name="username"
                         rules={[
                         {required: true,whitespace:true,message: '请输入你的用户名',},
-                        {max:4,message:'用户名最多12位'},
+                        {max:12,message:'用户名最多12位'},
                         {pattern:/^[a-zA-Z]+$/,message:'用户名必须由字母组成'},
                         ]}
                     >
@@ -108,18 +113,18 @@ export default class Admintor extends Component {
                         placeholder="Password"
                         />
                     </Form.Item>
-                    <Form.Item>
+                    {/* <Form.Item>
                         <Form.Item name="remember" valuePropName="checked" noStyle>
                         {/* <Checkbox>Remember me</Checkbox> */}
-                        </Form.Item>
+                        {/* </Form.Item> */}
 
                         {/* <a className="login-form-forgot" href="../../index">
                         Forgot password
                         </a> */}
-                    </Form.Item>
+                    {/* </Form.Item> */} 
 
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" /*onClick={this.loginBtn}*/ className="login-form-button">
+                        <Button type="primary" style={{width:'100%'}} htmlType="submit" /*onClick={this.loginBtn}*/ className="login-form-button">
                         Log in
                         </Button>
                         {/* Or <a href="">register now!</a> */}

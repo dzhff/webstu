@@ -3,6 +3,8 @@ import {Route,Switch,Redirect} from 'react-router-dom'
 import Register from './Register'
 import Admintor from './Admintor'
 import Attendant from './Attendant'
+import './index.css'
+
 // import Register from './Register'
 
 export default class Admin extends Component {
@@ -11,7 +13,7 @@ export default class Admin extends Component {
     // }
     render() {
         return (
-            <div style={{width:'100%',height:'100%'}}>
+            <div  className="adminadmin">
                 <Switch>
                     <Route path="/admin/admintor" component={Admintor}></Route>
                     <Route path="/admin/register" component={Register}></Route>

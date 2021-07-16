@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.8.3",
     "antd": "^4.16.2",
     "axios": "^0.21.1",
+    "echarts": "^5.1.2",
     "element-react": "^1.4.34",
     "element-ui": "^2.15.2",
     "http-proxy-middleware": "^2.0.0",

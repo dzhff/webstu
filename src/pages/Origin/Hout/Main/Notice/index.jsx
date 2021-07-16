@@ -24,7 +24,7 @@ import './index.css'
       function queding(){
         setzheng((zheng)=>{return zheng=!zheng})
         console.log(zheng);
-       alert(inputNotice.current.value) 
+    //    alert(inputNotice.current.value) 
        const token=window.sessionStorage.getItem('admintorToken')
        axios({
         method:'post',
@@ -46,7 +46,7 @@ import './index.css'
                             <div className="today_hang">
                             <div className="notice_triangle"></div>
                             {/* <div className="today_content">{notice}</div> */}
-                            <input ref={inputNotice} placeholder={notice} size="middle" style={{width:'50%'}}/>
+                            <input type="textarea" ref={inputNotice} placeholder={notice} size="middle" style={{width:'50%'}}/>
                             </div>
                     </div>:
                     <div>

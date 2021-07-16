@@ -50,6 +50,9 @@ header .navigation li a {
 header .navigation li a:hover {
   color: blue;
 }
+header li .backadmin:hover {
+  color: blue;
+}
 .ul_one {
   /* margin-left: 0px !important; */
   padding-right: 200px;
@@ -70,7 +73,7 @@ header .navigation.ul_two li {
   /* align-items: center; */
 }
 .banner {
-  /* background: #eee; */
+  background: #f5f5f5;
   padding: 100px 100px;
   min-height: 100vh;
   /* display: flex; */
@@ -107,7 +110,9 @@ header .navigation.ul_two li {
 @media screen and (max-width: 991px) {
   header {
     padding: 10px 20px;
-    flex-direction: column;
+    /* flex-direction: column; */
+    display: flex;
+    align-items: flex-start;
   }
   .banner {
     padding: 150px 20px 50px;
@@ -120,6 +125,9 @@ header .navigation.ul_two li {
   .banner .content h2 {
     font-size: 2em;
   }
+  .banner .content .gonggao {
+    display: none;
+  }
 }
 /*屏幕宽度小于600px,改变布局和样式*/
 @media screen and (max-width: 600px) {
@@ -128,5 +136,70 @@ header .navigation.ul_two li {
   }
   .banner .image {
     margin-top: 30px;
+    /* height: 30px; */
+    width: 20px;
+    display: inline;
+  }
+  header .ul_two {
+    display: none;
+  }
+  .banner .content .gonggao {
+    display: none;
+  }
+  .banner .image .slick-slide {
+    height: 20px;
+  }
+}
+.backadmin {
+  text-decoration: none;
+  color: inherit;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: inherit;
+  letter-spacing: 1px;
+  /* cursor: pointer; */
+}
+.backadminName {
+  text-decoration: none;
+  color: inherit;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: inherit;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+.backadminBack {
+  text-decoration: none;
+  color: inherit;
+  font-size: 18px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: inherit;
+  letter-spacing: 1px;
+  cursor: pointer;
+  padding-left: 20px;
+}
+.backadminBack:hover {
+  color: blue;
+}
+/* .ul_three {
+  padding-top: 10px !important;
+} */
+@media screen and (max-width: 800px) {
+  .backadminBack {
+    display: none;
+  }
+}
+@media screen and (max-width: 650px) {
+  .backadminName {
+    display: none;
+  }
+  .backadmin {
+    display: none;
   }
 }

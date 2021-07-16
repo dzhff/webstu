@@ -1,19 +1,35 @@
 .bored_main {
-  padding: 20px 30px;
-  width: 70%;
+  padding: 0px;
+  width: 100%;
   height: 500px;
   overflow: auto;
   border: none;
+  background-color: white;
+  margin-top: 20px;
+  padding-left: 20px;
 }
-.bored_title {
+.boredd {
   border-left: 5px solid rgb(0, 0, 255, 0.7);
   border-radius: 1px;
   padding-left: 10px;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.boreddqu {
+  border-left: 5px solid rgb(0, 0, 255, 0.7);
+  border-radius: 1px;
+  padding-left: 10px;
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.bored_title {
   margin-bottom: 20px;
   font-size: 20px !important;
 }
 .bored_search {
-  padding: 0px 30px;
+  padding: 0px;
+  /* margin-bottom: 20px; */
 }
 .get_bored {
   display: flex;
@@ -31,6 +47,7 @@
 }
 .get_bored .content {
   font-size: 18px;
+  max-width: 600px;
 }
 .get_bored .time {
   color: #828282;
@@ -42,4 +59,38 @@
 .ant-list-bordered {
   border: 1px solid transparent;
   border-radius: 2px;
+}
+
+@media screen and (max-width: 990px) {
+  .get_bored .content {
+    max-width: 400px;
+  }
+  .get_bored .time {
+    display: none;
+  }
+  .bored_search {
+    display: flex;
+    align-items: flex-start;
+    max-width: 600px;
+  }
+  /* .bored_search button {
+    display: none;
+  } */
+}
+@media screen and (max-width: 1120px) {
+  .get_bored .content {
+    max-width: 500px;
+  }
+  .bored_search {
+    display: flex;
+    align-items: flex-start;
+  }
+}
+@media screen and (max-width: 660px) {
+  .bored_search {
+    display: none;
+  }
+  .boredd {
+    display: none;
+  }
 }

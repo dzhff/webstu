@@ -98,20 +98,6 @@ export default class index extends Component {
 
                 }
             }
-            
-            
-
-        //     for(let i in selectedRowKeys){
-        //         for(let j in newBoredData){
-        //             if(newBoredData[j].key===selectedRowKeys[i]){
-        //                 newBoredData.splice(j,1)
-        //             }
-        //         }
-        //     }
-        //     this.setState({boredData:newBoredData},()=>{
-        //         console.log(boredData);
-        //     })
-    
 
         };
     
@@ -144,16 +130,17 @@ export default class index extends Component {
         return (
             <div>
                 <div className="hout_bored_title">今日留言板&nbsp;&nbsp;&nbsp;
-                <div style={{ marginBottom: 16 }}>
-                <Button type="primary" onClick={this.start} disabled={!hasSelected} loading={loading}>
-                    Reload
-                </Button>
-                </div>
+                
                 <span style={{ marginLeft: 8 ,fontSize:'16px'}} className="selectedItem">
                     {hasSelected ? `已选中 ${selectedRowKeys.length} 项` : ''}
                 </span>
                 </div>
                 <Table  rowSelection={rowSelection} columns={columns} dataSource={boredData} scroll={{ y: 390 }}/>
+                <div style={{ marginBottom: 16 }}>
+                <Button type="primary" onClick={this.start} style={{width:'10%'}} disabled={!hasSelected} loading={loading}>
+                    删除
+                </Button>
+                </div>
             </div>
         )
     }

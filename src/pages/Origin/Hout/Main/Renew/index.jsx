@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import store from '../../../../../redux/store'
-import {pushrenewAction} from '../../../../../redux/actions/pushrenewId'
+// import store from '../../../../../redux/store'
+// import {pushrenewAction} from '../../../../../redux/actions/pushrenewId'
 import { Table, Button } from 'antd';
+import { Loading } from 'element-react/next';
 import './index.css'
 import axios from 'axios';
 // import PubSub from 'pubsub-js';
@@ -16,7 +17,10 @@ export default class Renew extends Component {
             token:window.sessionStorage.getItem('admintorToken'),
             passageItem:[],
             passageItemCount:-1,
-            err:false
+            err:false,
+            renewCurrent:parseInt(window.location.hash.slice(1), 0) || 1,
+            allLoading:true
+
           };
         
 
@@ -29,6 +33,7 @@ export default class Renew extends Component {
         }).then(
             response=>{
                 this.setState({passageItemCount:response.data.passageItemCount})
+                this.setState({allLoading:false})
                 axios({
                     method:'get',
                     url:`http://121.4.187.232:8080/passage/queryAllPassage?pageNo=${1}&pageSize=${this.state.passageItemCount}`,
@@ -55,6 +60,18 @@ export default class Renew extends Component {
             }
         )
           
+    }
+    changgePage=(page)=>{
+        const renewCurrent=page
+        this.setState({renewCurrent},()=>{
+            window.location.hash = `#${page}`//设置当前页面的hash值为当前page页数
+        })
+    }
+    backCurrentPage=()=>{
+        this.changgePage(this.state.renewCurrent)
+    }
+    componentDidMount(){
+        this.backCurrentPage()//刷新时回到刷新前的页数
     }
 
     onSelectChange = selectedRowKeys => {
@@ -95,11 +112,11 @@ export default class Renew extends Component {
                                 id:item.id
                             }))
                             updatePassage.splice(i,1)
-                            for(let e in updatePassage){
-                                if(updatePassage[2].key>e){
-                                    updatePassage[2].key=((updatePassage[2].key)-1)
-                                }
-                            }
+                            // for(let e in updatePassage){
+                            //     if(updatePassage[2].key>e){
+                            //         updatePassage[2].key=((updatePassage[2].key)-1)
+                            //     }
+                            // }
                             this.setState({passageItem:updatePassage},()=>{
                                 console.log(passageItem);
                             })
@@ -125,10 +142,15 @@ export default class Renew extends Component {
     render() {
         const columns = [
             {
-              title: '序号',
-              dataIndex: 'key',
-              key:'key'
+                title:'序号',
+                render: (text, record, index) => `${index + 1}`,
+                width:'200px'
             },
+            // {
+            //   title: '序号',
+            //   dataIndex: 'key',
+            //   key:'key'
+            // },
             {
               title: '标题',
               dataIndex: 'title',
@@ -138,6 +160,18 @@ export default class Renew extends Component {
               title: '内容',
               dataIndex: 'content',
               key:'content',
+              onCell: () => {
+                return {
+                  style: {
+                    maxWidth: 260,
+                    overflow: 'hidden',
+                    whiteSpace: 'nowrap',
+                    textOverflow: 'ellipsis',
+                    cursor: 'pointer',
+                    // color:'red'
+                  }
+                }
+              }
             },
             {
                 title: '时间',
@@ -152,8 +186,8 @@ export default class Renew extends Component {
                     // console.log(index);
                     return(
                         <div>
-                            <span className="a_delete" onClick={this.deletedd(2)}>删除</span>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            {/* <span className="a_delete" onClick={this.deletedd(2)}>删除</span> */}
+                            {/* &nbsp;&nbsp;&nbsp;&nbsp; */}
                             <span className="a_idit" onClick={this.pushEdit}>编辑</span>
                         </div> 
                     )
@@ -163,7 +197,7 @@ export default class Renew extends Component {
           ];
           
         
-          const { loading, selectedRowKeys,passageItem } = this.state;
+          const { loading, selectedRowKeys,passageItem,renewCurrent,allLoading } = this.state;
           const rowSelection = {
             selectedRowKeys,
             onChange: this.onSelectChange,
@@ -171,10 +205,11 @@ export default class Renew extends Component {
           const hasSelected = selectedRowKeys.length > 0;
         return (
             <div>
-                <div>
+                <div >
+                <Loading text="正在加载中..." loading={allLoading}>
                 <div style={{ marginBottom: 16 }}>
                 <Button type="primary" style={{width:'10%'}} onClick={this.start} disabled={!hasSelected} loading={loading}>
-                    Reload
+                    删除
                 </Button>
                 <span style={{ marginLeft: 8 }}>
                     {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
@@ -184,18 +219,20 @@ export default class Renew extends Component {
                 onRow={record=>{
                     return{
                         onClick:event=>{
-                            // PubSub.publish('renewId',{Id:record.id})
-                            store.dispatch(pushrenewAction(record.id))
                             window.localStorage.setItem('renewId',record.id)
-                            this.props.history.push({
-                                pathname:'/hout/pushrenew',
-                                // query:{obj:record.id}
-                            })
+
+                            this.props.history.push(`/hout/pushrenew/${record.id}`)
+
+                            // this.props.history.push({ path : '/hout/pushrenew' ,query : { id: `${record.id}`} })
+
+                            // this.props.history.push({ pathname:'/hout/pushrenew',param:{id : record.id } })
+                            console.log(record.id);
                         }
                     }
                 }}
                 // onRow={record=>{return {onClick={this.pushRenew}}}}
-                rowSelection={rowSelection} columns={columns} dataSource={passageItem} pagination={{onChange:this.changePage}} scroll={{ y: 390 }}/>
+                rowSelection={rowSelection} columns={columns} dataSource={passageItem} pagination={{current:renewCurrent,onChange:this.changgePage}} scroll={{ y: 390 }}/>
+                </Loading>
             </div>
             </div>
         )

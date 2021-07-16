@@ -8,7 +8,9 @@ export default class Users extends Component {
         super(props)
         this.state={
             usersData:[],
+            current:parseInt(window.location.hash.slice(1), 0) || 1,//获取刷新前的页数
         }
+        
         const token=window.sessionStorage.getItem('admintorToken')
         axios({
             method:'post',
@@ -20,30 +22,35 @@ export default class Users extends Component {
             response=>{
                 console.log(response);
                 this.setState({usersData:response.data})
-                // console.log(this.state.usersData[0]);
-                // console.log(this.state.usersData.username);
-                // const data =[]
-                // for(let i in this.state.usersData){
-                //     data.push(
-                //         this.state.usersData[i]
-                //     )
-                // }
-                // console.log(data);
-                // this.setState({usersData:data})
-
             }
         )    
     }
-    changgePage=(event)=>{
-        console.log(event);
+    changgePage=(page)=>{
+        const current=page
+        this.setState({current},()=>{
+            console.log(this.state.current);
+            window.location.hash = `#${page}`//设置当前页面的hash值为当前page页数
+            console.log(parseInt(window.location.hash.slice(1), 0));
+        })
+    }
+    backCurrentPage=()=>{
+        this.changgePage(this.state.current)
+    }
+    componentDidMount(){
+        this.backCurrentPage()//刷新时回到刷新前的页数
     }
     render() {
-        const columns = [
+        const columns = [  
             {
-                title: '用户名Id',
-                dataIndex: 'userId',
-                key: 'userId',
+                title:'序号',
+                render: (text, record, index) => `${index + 1}`,
+                width:'200px'
             },
+            // {
+            //     title: '用户名Id',
+            //     dataIndex: 'userId',
+            //     key: 'userId',
+            // },
             {
               title: '用户名',
               dataIndex: 'username',
@@ -55,11 +62,11 @@ export default class Users extends Component {
               key: 'password',
             },
         ]
-        
+        const current=this.state.current
         const usersData = this.state.usersData
         return (
             <div>
-                <Table columns={columns} changePage={{onclick:this.changgePage}} dataSource={usersData} scroll={{ y: 390 }}/>
+                <Table columns={columns} pagination={{current:current,onChange:this.changgePage}}  /*changePage={{onclick:this.changgePage}}*/ dataSource={usersData} scroll={{ y: 390 }}/>
             </div>
         )
     }

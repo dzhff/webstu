@@ -3,7 +3,7 @@ import React from 'react';
 // 引入reactDom
 import ReactDOM from 'react-dom';
 // 
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 // import './index.css';
 // 引入App组件
 import App from './App';
@@ -24,9 +24,9 @@ import App from './App';
 // //方式二：
 // store.subscribe(()=>{
 ReactDOM.render(
-    <HashRouter>
+    <BrowserRouter>
         <App/>
-    </HashRouter>,
+    </BrowserRouter>,
     document.getElementById('root'))
 // })
     // store.subscribe(()=>{

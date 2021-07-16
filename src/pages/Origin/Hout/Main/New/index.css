@@ -8,3 +8,6 @@
   justify-content: flex-start;
   margin: 20px 0;
 }
+button .ant-btn {
+  width: 100% !important;
+}

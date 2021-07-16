@@ -9,6 +9,7 @@ export default class Gonggao extends Component {
         isHave:'true',//是否有公告
         err:'',
     }
+    
     componentDidMount(){
         axios.get('http://121.4.187.232:8080/notice/queryNotice').then(
             response=>{

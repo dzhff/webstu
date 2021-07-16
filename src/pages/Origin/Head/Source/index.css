@@ -1,19 +1,22 @@
 .passageAll {
-  border: 1px solid red;
+  /* border: 1px solid red; */
+  /* width: 100%; */
   /* display: flex;
   justify-content: space-between; */
 }
 .passageOne {
-  width: 80%;
+  width: 90%;
   margin-top: 10px;
   margin-bottom: 15px;
-  margin-left: 20px;
+  padding: 0px;
+  /* margin-left: px; */
 }
 .p1 {
-  font-size: 20px !important;
+  font-size: 25px !important;
   line-height: 1.5 !important;
   font-weight: 500 !important;
   color: #262626 !important;
+  margin: 0;
 }
 .p2 {
   line-height: 1.625 !important;
@@ -21,9 +24,52 @@
   font-size: 16px !important;
   cursor: pointer !important;
 }
+.p2:hover {
+  color: #4d86f0;
+}
 .p3 {
   color: #828282 !important;
   font-size: 12px !important;
 }
-/* .detailPassa {
-} */
+.pTotal {
+  margin-left: 30px;
+  margin-top: 0;
+}
+.fabiaoluang {
+  border-left: 5px solid rgb(0, 0, 255, 0.7);
+  border-radius: 1px;
+  padding-left: 10px;
+  font-size: 20px;
+  margin-top: 20px;
+}
+.spanpic {
+  width: 30%;
+  /* height: 20%; */
+}
+.fenbushow {
+  display: flex;
+  align-items: flex-start;
+}
+.ant-card-body {
+  padding: 10px;
+  padding-left: 20px;
+}
+@media screen and (max-width: 520px) {
+  .p3 {
+    display: none;
+  }
+}
+@media screen and (max-width: 1000px) {
+  /* .pTotal {
+    margin: 20px 0;
+  } */
+  .p2 {
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 890px) {
+  .spanpic {
+    display: none;
+  }
+}
