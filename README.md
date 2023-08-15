@@ -1,3 +1,7 @@
+# description
+> 1.这是由React+antd编写的一个学习资源平台，这个平台所有的页面展示均有本人所写，包含用户登录注册，前端页面，后台管理系统页面。
+> 2.目前接口已失效，页面内容均由后台接口提供
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
